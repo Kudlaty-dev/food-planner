@@ -20,10 +20,11 @@ export class IngredientsController {
   //   return this.ingredientsService.createIngredient(ingredientDto);
   // }
 
-  // @Get()
-  // getIngredients(): Promise<Ingredient[]> {
-  //   return this.ingredientsService.findIngredients();
-  // }
+  @Get()
+  getIngredients(): Promise<Ingredient[]> {
+    console.log('controller');
+    return this.ingredientsService.findIngredients();
+  }
   // @Get('/:id')
   // getIngredientById(@Param('id') id: string): Promise<Ingredient> {
   //   return this.ingredientsService.findOneIngredient(id);

@@ -1,13 +1,12 @@
 import {
-  BaseEntity as TypeOrmBaseEntity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-export abstract class ProjectBaseEntity extends TypeOrmBaseEntity {
+export abstract class ProjectBaseEntity {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @CreateDateColumn()
   createdAt: Date;
