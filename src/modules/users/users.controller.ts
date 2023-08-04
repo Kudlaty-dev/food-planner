@@ -1,41 +1,37 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Delete,
-  Param,
   Body,
+  Controller,
+  Inject,
+  Post,
+  Get,
+  Patch,
+  Param,
 } from '@nestjs/common';
-import { UserService } from './users.service';
-import { User } from './user.entity';
+import { User } from './entity/user.entity';
+import { UserServiceInterface } from './interface/user.service.interface';
+import { UserDto } from './dto/user.dto';
 
 @Controller('users')
-export class UserController {
-  constructor(private readonly userService: UserService) {}
-
-  @Get()
-  async findAll(): Promise<User[]> {
-    return this.userService.findAll();
-  }
-
-  //   @Get(':id')
-  //   async findById(@Param('id') id: string): Promise<User> {
-  //     return this.userService.findById(id);
-  //   }
+export class UsersController {
+  constructor(
+    @Inject('UserServiceInterface')
+    private readonly userService: UserServiceInterface,
+  ) {}
 
   @Post()
-  async create(@Body() data: Partial<User>): Promise<User> {
-    return this.userService.create(data);
+  public async create(@Body() userDto: UserDto): Promise<User> {
+    return await this.userService.create(userDto);
+  }
+  @Get()
+  public async findAll(): Promise<User[]> {
+    return await this.userService.findAll();
   }
 
-  //   @Put(':id')
-  //   async update(@Param('id') id: string, @Body() data: Partial<User>): Promise<User> {
-  //     return this.userService.update(id, data);
-  //   }
-
-  //   @Delete(':id')
-  //   async delete(@Param('id') id: string): Promise<void> {
-  //     return this.userService.delete(id);
-  //   }
+  @Patch('/:id/')
+  public async update(
+    @Param('id') id: string,
+    @Body() userDto: UserDto,
+  ): Promise<User> {
+    return await this.userService.update(id, userDto);
+  }
 }

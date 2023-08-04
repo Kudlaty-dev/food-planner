@@ -8,7 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Recipe } from './modules/recipes/recipe.entity';
 import { DataSource } from 'typeorm';
 import { IngredientsModule } from './modules/ingredients/ingredients.module';
-import { UsersModule } from './modules/users/users.module';
+import { UserModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -35,7 +35,7 @@ import { UsersModule } from './modules/users/users.module';
       },
     }),
     IngredientsModule,
-    UsersModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

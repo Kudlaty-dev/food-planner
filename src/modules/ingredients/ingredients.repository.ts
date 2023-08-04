@@ -4,28 +4,19 @@ import { Ingredient } from './ingredient.entity';
 import { IngredientDto } from './dto/ingredient.dto';
 import { v4 as uuid } from 'uuid';
 //import { BaseRepository } from '../base.repository';
-import { BaseInterfaceRepository } from '../base.interface.repository';
-import { BaseIngredientsRepository } from '../base.repository';
+
 import { InjectRepository } from '@nestjs/typeorm';
 
-// export class IngredientsRepository
-//   extends BaseRepository<Ingredient>
-//   implements BaseInterfaceRepository<Ingredient>
-// {
-//   constructor(repository: Repository<Ingredient>) {
-//     super(repository);
-//   }
+@Injectable()
+export class IngredientsRepository extends Repository<Ingredient> {
+  constructor(private dataSource: DataSource) {
+    super(Ingredient, dataSource.createEntityManager());
+  }
 
-//   async findAllIngredients(): Promise<Ingredient[]> {
-//     return await this.findAll();
-//   }
-// }
-
-// @Injectable()
-// export class IngredientsRepository extends Repository<Ingredient> {
-//   constructor(private dataSource: DataSource) {
-//     super(Ingredient, dataSource.createEntityManager());
-//   }
+  async findAllIngredients(): Promise<Ingredient[]> {
+    return await this.find();
+  }
+}
 
 //   async findAllIngredients(): Promise<Ingredient[]> {
 //     return await this.find();
@@ -59,16 +50,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 //   return recipe;
 // }
 
-@Injectable()
-export class IngredientsRepository {
-  constructor(private baseRepo: BaseIngredientsRepository<Ingredient>) {}
+// createIngredient(ingredientDto: IngredientDto): Promise<Ingredient> {
+//   return this.ingredientsRepository.saveIngredient(ingredientDto);
+// }
 
-  // createIngredient(ingredientDto: IngredientDto): Promise<Ingredient> {
-  //   return this.ingredientsRepository.saveIngredient(ingredientDto);
-  // }
-
-  findAllIngredients(): Promise<Ingredient[]> {
-    console.log('repo');
-    return this.baseRepo.findAll();
-  }
-}
+//   findAllIngredients(): Promise<Ingredient[]> {
+//     console.log('repo');
+//     return this.baseRepo.findAll();
+//   }

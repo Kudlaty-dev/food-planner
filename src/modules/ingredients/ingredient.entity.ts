@@ -1,8 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { ProjectBaseEntity } from '../base.entity';
 
 @Entity()
-export class Ingredient extends ProjectBaseEntity {
+export class Ingredient {
+  @PrimaryGeneratedColumn()
+  id: string;
+
   @Column()
   ingredientName: string;
 
