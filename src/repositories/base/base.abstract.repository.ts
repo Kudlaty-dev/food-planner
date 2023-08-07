@@ -13,17 +13,19 @@ export abstract class BaseAbstractRepository<T> {
     return await this.entity.save(data);
   }
 
-  // public async findOneById(id: number): Promise<T> {
-  //   return await this.entity.findOne(id);
+  public async findOneById(id: any): Promise<T> {
+    const condition = { id: id };
+    return await this.entity.findOne({ where: condition });
+  }
+
+  //To be implemented later
+  // public async findByCondition(filterCondition: any): Promise<T> {
+  //   return await this.entity.findOne({ where: filterCondition });
   // }
 
-  public async findByCondition(filterCondition: any): Promise<T> {
-    return await this.entity.findOne({ where: filterCondition });
-  }
-
-  public async findWithRelations(relations: any): Promise<T[]> {
-    return await this.entity.find(relations);
-  }
+  // public async findWithRelations(relations: any): Promise<T[]> {
+  //   return await this.entity.find(relations);
+  // }
 
   public async findAll(): Promise<T[]> {
     return await this.entity.find();
@@ -33,8 +35,9 @@ export abstract class BaseAbstractRepository<T> {
     return await this.entity.delete(id);
   }
 
-  public async update(id: any, data: Partial<T>): Promise<T> {
-    console.log(data);
-    return await this.findByCondition(id);
+  public async update(id: any, data): Promise<T> {
+    if (this.findOneById(id)) {
+      return this.entity.save(data);
+    }
   }
 }
