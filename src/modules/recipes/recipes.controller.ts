@@ -3,30 +3,35 @@ import {
   Controller,
   Delete,
   Get,
+  Inject,
   Param,
   Patch,
   Post,
 } from '@nestjs/common';
 import { RecipesService } from './recipes.service';
 import { RecipeDto } from './dto/recipe.dto';
-import { Recipe } from './recipe.entity';
+import { Recipe } from './entity/recipe.entity';
+import { DeleteResult } from 'typeorm';
 
 @Controller('recipes')
 export class RecipesController {
-  constructor(private recipesService: RecipesService) {}
+  constructor(
+    @Inject('RecipesServiceInterface')
+    private recipesService: RecipesService,
+  ) {}
 
   @Post()
   postRecipe(@Body() recipeDto: RecipeDto): Promise<Recipe> {
-    return this.recipesService.createRecipe(recipeDto);
+    return this.recipesService.create(recipeDto);
   }
 
   @Get()
   getRecipes(): Promise<Recipe[]> {
-    return this.recipesService.findRecipes();
+    return this.recipesService.findAll();
   }
   @Get('/:id')
   getRecipeById(@Param('id') id: string): Promise<Recipe> {
-    return this.recipesService.findOneRecipe(id);
+    return this.recipesService.findOneById(id);
   }
 
   @Patch('/:id')
@@ -34,11 +39,11 @@ export class RecipesController {
     @Param('id') id: string,
     @Body() recipeDto: RecipeDto,
   ): Promise<Recipe> {
-    return this.recipesService.updateRecipe(id, recipeDto);
+    return this.recipesService.update(id, recipeDto);
   }
 
   @Delete('/:id')
-  deleteRecipe(@Param('id') id: string): Promise<Recipe> {
-    return this.recipesService.removeRecipe(id);
+  deleteRecipe(@Param('id') id: string): Promise<DeleteResult> {
+    return this.recipesService.remove(id);
   }
 }

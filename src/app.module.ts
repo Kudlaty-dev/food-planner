@@ -5,7 +5,7 @@ import { RecipesModule } from './modules/recipes/recipes.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configValidationSchema } from './config.schema';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Recipe } from './modules/recipes/recipe.entity';
+import { Recipe } from './modules/recipes/entity/recipe.entity';
 import { DataSource } from 'typeorm';
 import { IngredientsModule } from './modules/ingredients/ingredients.module';
 import { UserModule } from './modules/users/users.module';

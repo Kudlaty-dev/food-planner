@@ -1,9 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { User } from './entity/user.entity';
-import { UserRepositoryInterface } from './interface/user.repository.interface';
 import { UserServiceInterface } from './interface/user.service.interface';
 import { UserDto } from './dto/user.dto';
-import { BaseAbstractRepository } from 'src/repositories/base/base.abstract.repository';
 import { UserRepository } from 'src/repositories/user.repository';
 import { DeleteResult } from 'typeorm';
 
