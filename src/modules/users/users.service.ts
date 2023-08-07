@@ -23,7 +23,6 @@ export class UserService implements UserServiceInterface {
   }
 
   public async findAll(): Promise<User[]> {
-    this.userRepository.print();
     return await this.userRepository.findAll();
   }
 
@@ -31,7 +30,7 @@ export class UserService implements UserServiceInterface {
     return await this.userRepository.findOneById(id);
   }
 
-  // To be worked on later
+  // To be worked on
   // public async findWithCondition(id): Promise<User> {
   //   const filterCondition = { id: id };
   //   return await this.userRepository.findByCondition(filterCondition);

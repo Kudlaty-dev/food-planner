@@ -1,8 +1,9 @@
 import { BaseInterfaceRepository } from './base.interface.repository';
 import { DeleteResult, Repository } from 'typeorm';
 
-export abstract class BaseAbstractRepository<T> {
-  //implements BaseInterfaceRepository<T>
+export abstract class BaseAbstractRepository<T>
+  implements BaseInterfaceRepository<T>
+{
   private entity: Repository<T>;
 
   protected constructor(entity: Repository<T>) {

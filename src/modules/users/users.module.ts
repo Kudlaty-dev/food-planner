@@ -18,7 +18,6 @@ import { UserServiceInterface } from './interface/user.service.interface';
       provide: 'UserServiceInterface',
       useClass: UserService,
     },
-    UserRepository,
   ],
   controllers: [UsersController],
 })

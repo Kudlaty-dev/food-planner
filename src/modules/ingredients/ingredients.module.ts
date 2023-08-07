@@ -1,13 +1,22 @@
 import { Module } from '@nestjs/common';
-import { IngredientsController } from './ingredients.controller';
-import { IngredientsService } from './ingredients.service';
+import { IngredientController } from './ingredients.controller';
+import { IngredientService } from './ingredient.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Ingredient } from './ingredient.entity';
-import { IngredientsRepository } from './ingredients.repository';
+import { Ingredient } from './entity/ingredient.entity';
+import { IngredientRepository } from '../../repositories/ingredient.repository';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Ingredient])],
-  controllers: [IngredientsController],
-  providers: [IngredientsService, IngredientsRepository],
+  controllers: [IngredientController],
+  providers: [
+    {
+      provide: 'IngredientRepositoryInterface',
+      useClass: IngredientRepository,
+    },
+    {
+      provide: 'IngredientServiceInterface',
+      useClass: IngredientService,
+    },
+  ],
 })
 export class IngredientsModule {}

@@ -6,40 +6,49 @@ import {
   Patch,
   Delete,
   Param,
+  Inject,
 } from '@nestjs/common';
-import { IngredientsService } from './ingredients.service';
 import { IngredientDto } from './dto/ingredient.dto';
-import { Ingredient } from './ingredient.entity';
+import { Ingredient } from './entity/ingredient.entity';
+import { IngredientServiceInterface } from './interface/ingredient.service.interface';
+import { DeleteResult } from 'typeorm';
 
 @Controller('ingredients')
-export class IngredientsController {
-  constructor(private ingredientsService: IngredientsService) {}
+export class IngredientController {
+  constructor(
+    @Inject('IngredientServiceInterface')
+    private readonly ingredientsService: IngredientServiceInterface,
+  ) {}
 
-  // @Post()
-  // createIngredient(@Body() ingredientDto: IngredientDto): Promise<Ingredient> {
-  //   return this.ingredientsService.createIngredient(ingredientDto);
-  // }
+  @Post()
+  public async create(
+    @Body() ingredientDto: IngredientDto,
+  ): Promise<Ingredient> {
+    return await this.ingredientsService.create(ingredientDto);
+  }
+
+  @Get('/:id')
+  public async getIngredientById(@Param('id') id: string): Promise<Ingredient> {
+    return await this.ingredientsService.findOneIngredient(id);
+  }
 
   @Get()
-  getIngredients(): Promise<Ingredient[]> {
-    console.log('controller');
-    return this.ingredientsService.findIngredients();
+  public async getIngredients(): Promise<Ingredient[]> {
+    return await this.ingredientsService.findIngredients();
   }
-  // @Get('/:id')
-  // getIngredientById(@Param('id') id: string): Promise<Ingredient> {
-  //   return this.ingredientsService.findOneIngredient(id);
-  // }
 
-  // @Patch('/:id')
-  // patchIngredient(
-  //   @Param('id') id: string,
-  //   @Body() ingredientDto: IngredientDto,
-  // ): Promise<Ingredient> {
-  //   return this.ingredientsService.updateIngredient(id, ingredientDto);
-  // }
+  @Patch('/:id')
+  public async patchIngredient(
+    @Param('id') id: string,
+    @Body() ingredientDto: IngredientDto,
+  ): Promise<Ingredient> {
+    return await this.ingredientsService.updateIngredient(id, ingredientDto);
+  }
 
-  // @Delete('/:id')
-  // deleteIngredient(@Param('id') id: string): Promise<Ingredient> {
-  //   return this.ingredientsService.removeIngredient(id);
-  // }
+  @Delete('/:id')
+  public async deleteIngredient(
+    @Param('id') id: string,
+  ): Promise<DeleteResult> {
+    return await this.ingredientsService.removeIngredient(id);
+  }
 }

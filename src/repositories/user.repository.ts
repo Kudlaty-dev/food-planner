@@ -17,7 +17,7 @@ export class UserRepository
     super(usersRepository);
   }
 
-  print(): void {
+  customUserFunction(): void {
     return console.log('direct user repo');
   }
 }
