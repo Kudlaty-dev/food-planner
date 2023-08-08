@@ -11,7 +11,9 @@ export interface BaseInterfaceRepository<T> {
 
   remove(id: string): Promise<DeleteResult>;
 
-  //findWithRelations(relations: any): Promise<T[]>;
+  findWithRelations(relations: any): Promise<T[]>;
 
   update(id, data: Partial<T>): Promise<T>;
+
+  findManyByIds(idArr): Promise<T[]>;
 }

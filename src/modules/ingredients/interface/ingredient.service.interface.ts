@@ -11,4 +11,5 @@ export interface IngredientServiceInterface {
     ingredientDto: IngredientDto,
   ): Promise<Ingredient>;
   removeIngredient(id): Promise<DeleteResult>;
+  findManyByIds(idArr): Promise<Ingredient[]>;
 }

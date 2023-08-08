@@ -33,8 +33,8 @@ export class IngredientService implements IngredientServiceInterface {
     return this.ingredientRepository.findOneById(id);
   }
 
-  findIngredients(): Promise<Ingredient[]> {
-    return this.ingredientRepository.findAll();
+  public async findIngredients(): Promise<Ingredient[]> {
+    return await this.ingredientRepository.findAll();
   }
 
   updateIngredient(
@@ -47,5 +47,9 @@ export class IngredientService implements IngredientServiceInterface {
 
   removeIngredient(id: string): Promise<DeleteResult> {
     return this.ingredientRepository.remove(id);
+  }
+
+  public async findManyByIds(idArr: any): Promise<Ingredient[]> {
+    return await this.ingredientRepository.findManyByIds(idArr);
   }
 }

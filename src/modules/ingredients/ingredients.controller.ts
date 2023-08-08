@@ -24,6 +24,7 @@ export class IngredientController {
   public async create(
     @Body() ingredientDto: IngredientDto,
   ): Promise<Ingredient> {
+    console.log(ingredientDto);
     return await this.ingredientsService.create(ingredientDto);
   }
 

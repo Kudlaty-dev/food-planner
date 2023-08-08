@@ -18,5 +18,11 @@ import { IngredientRepository } from '../../repositories/ingredient.repository';
       useClass: IngredientService,
     },
   ],
+  exports: [
+    {
+      provide: 'IngredientServiceInterface',
+      useClass: IngredientService,
+    },
+  ],
 })
 export class IngredientsModule {}
